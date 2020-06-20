@@ -6,6 +6,13 @@ const JWT = require('jsonwebtoken');
 const Admin = require('../models/adminSchema');
 const { Strategy } = require('passport');
 
+const path = require('path');
+const sendMail = require('./mailer');
+
+// var bodyParser = require('body-parser');
+// adminRouter.use(bodyParser.urlencoded({ extended: false }));
+// adminRouter.use(bodyParser.json());
+
 
 const signToken = id => {
     return JWT.sign({
@@ -35,20 +42,9 @@ adminRouter.post('/login', passport.authenticate('local',{session: false}) , (re
 });
 
 
-adminRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.clearCookie('access_token');
-    res.json({
-        user:{email : "", password : ""},
-        success : true
-    });
-});
-
-// adminRouter.post('/login',(req, res) => {
-//     console.log("LOGIN REQUEST RECIEVED");
-// });
-
 adminRouter.post('/register',(req,res)=>{
     const {name,organization,email,password} = req.body;
+    // console.log(req);
     Admin.findOne({email},(err,admin)=>{
         if(err) res.status(500).json({
             message: {
@@ -63,24 +59,44 @@ adminRouter.post('/register',(req,res)=>{
             }
         });
         else{
-            const newAdmin = new Admin({ name, organization, email, password});
-            newAdmin.save(err=>{
+            host = req.get('host');
+            sendMail(name, email, host, function (err, verified) {
                 if (err) res.status(500).json({
                     message: {
-                        msgBody: "Error has occurred !",
+                        msgBody: "Error has occurred while sending verification mail!",
                         msgError: true
                     }
                 });
-                else{
-                    res.status(201).json({
-                        message: {
-                            msgBody: "Account successfully created !",
-                            msgError: false
+                else {
+                    const newAdmin = new Admin({ name, organization, email, password, verified});
+                    newAdmin.save(err => {
+                        if (err) res.status(500).json({
+                            message: {
+                                msgBody: "Error has occurred while creating account!",
+                                msgError: true
+                            }
+                        });
+                        else {
+                            res.status(201).json({
+                                message: {
+                                    msgBody: "Account successfully created !",
+                                    msgError: false
+                                }
+                            });
                         }
                     });
                 }
             });
         }
+    });
+});
+
+
+adminRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.clearCookie('access_token');
+    res.json({
+        user: { email: "", password: "" },
+        success: true
     });
 });
 

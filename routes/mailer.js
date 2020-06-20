@@ -1,18 +1,22 @@
+const result = require('dotenv').config()
+if (result.error) {
+    throw result.error
+}
+
+const path = require('path');
 const nodemailer=require('nodemailer');
 const express=require('express');
 const bcrypt = require('bcrypt');
 var randomstring = require("randomstring");
 
-
-
 const app=express();
 
 var smtpTransport = nodemailer.createTransport({	
-	port:465,
+	port: process.env.MAILING_PORT,
     service: "Gmail",
     auth: {
-        user: "",
-        pass: ""
+        user: process.env.MAILING_ID,
+        pass: process.env.MAILING_PASSWORD
     },
     tls:{
         rejectUnauthorized: false
@@ -23,16 +27,14 @@ var rand,mailOptions,host_name,link;
 
 const sendMail=(name,email,host,cb)=>{
     rand = randomstring.generate();
-    host_name=host;
     bcrypt.hash(rand, 10, (err, randHash) => {
         if (err){
             cb(err);
         }
         else{
-            rand = randHash;
-            link = "http://" + host_name + "/check?email=" + email + "&key=" + rand;
+            link = "http://" + process.env.HOST + ":" + process.env.PORT + "/verify?email=" + email + "&key=" + randHash;
             mailOptions = {
-                from: '',
+                from: process.env.MAILING_ID,
                 to: email,
                 subject: "Please confirm your Email account",
                 html: "Hello " + name + ",<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"

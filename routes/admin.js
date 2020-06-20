@@ -1,22 +1,22 @@
+const result = require('dotenv').config()
+if (result.error) {
+    throw result.error
+}
+
+const path = require('path');
 const express = require('express')
 const adminRouter = express.Router();
 const passport = require('passport');
-const passportConfig = require('../passport');
+const passportConfig = require(path.join(__dirname, '../passport'));
 const JWT = require('jsonwebtoken');
-const Admin = require('../models/adminSchema');
+const Admin = require(path.join(__dirname, '../models/adminSchema'));
 const { Strategy } = require('passport');
 
-const path = require('path');
-const sendMail = require('./mailer');
-
-// var bodyParser = require('body-parser');
-// adminRouter.use(bodyParser.urlencoded({ extended: false }));
-// adminRouter.use(bodyParser.json());
-
+const sendMail = require(path.join(__dirname, './mailer'));
 
 const signToken = id => {
     return JWT.sign({
-        iss : "run_time_error",
+        iss : process.env.JWT_KEY,
         sub : id
     },"run_time_error",{expiresIn : "1h"});
 }

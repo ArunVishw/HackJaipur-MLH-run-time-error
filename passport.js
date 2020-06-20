@@ -1,7 +1,14 @@
+const result = require('dotenv').config()
+if (result.error) {
+    throw result.error
+}
+
+const path = require('path');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const Admin = require('./models/adminSchema');
+const Admin = require(path.join(__dirname, './models/adminSchema'));
 const JwtStrategy = require('passport-jwt').Strategy;
+
 
 
 const cookieExtractor = req =>{
@@ -16,7 +23,7 @@ const cookieExtractor = req =>{
 // Authorization using JWT token / cookie
 passport.use(new JwtStrategy({
     jwtFromRequest : cookieExtractor,
-    secretOrKey : "run_time_error"
+    secretOrKey : process.env.JWT_KEY
 },(payload,done)=>{
     Admin.findById({_id : payload.sub},(err,admin)=>{
         if(err) return done(err,false);

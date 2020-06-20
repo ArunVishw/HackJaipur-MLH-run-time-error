@@ -1,0 +1,27 @@
+-ADMIN
+	--Name
+	--Organization
+	--Email
+	--Password
+	--isVerified
+
+-STUDENT
+	--Name
+	--Email
+	--Institute
+	--Degree
+	--Branch
+	--Scholar Number
+	--CGPA
+	--criteriaMatched
+	--Resume
+	--Admin
+	--Interview
+		--isInterviewed
+		--isSelected
+		--Organization
+		--Date
+		--Time
+		--Score
+		--Notepad
+		

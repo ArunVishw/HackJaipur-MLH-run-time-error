@@ -5,11 +5,9 @@ if (result.error) {
 
 const path = require('path');
 const nodemailer=require('nodemailer');
-const express=require('express');
 const bcrypt = require('bcrypt');
 var randomstring = require("randomstring");
 
-const app=express();
 
 var smtpTransport = nodemailer.createTransport({	
 	port: process.env.MAILING_PORT,
@@ -55,4 +53,4 @@ const sendMail=(name,email,host,cb)=>{
 
 };
 
-module.exports=sendMail;
+module.exports = sendMail;

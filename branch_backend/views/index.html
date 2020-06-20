@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+</head>
+<body>
+    <form>
+        <input name="name" id="name" type="text" placeholder="Name"/><br/>
+        <input name="organisation" id="organisation" type="text" placeholder="Organisation"/><br/>
+        <input name="email" id="email" type="text" placeholder="Email"/><br/>
+        <input name="password" id="password" type="text" placeholder="Password"/><br/>
+        <input name="submit" id="submit" type="submit" value="Submit" /><br/>
+
+    </form>
+    <span id="message"></span>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $('form').on('submit',(e)=>{
+            e.preventDefault();
+            const name=$('#name').val().trim();
+            const organisation=$('#organisation').val().trim();
+            const email=$('#email').val().trim();
+            const password=$('#password').val().trim();
+            $("#message").text("Sending E-mail...Please wait");
+
+            const data={
+                name,organisation,email,password
+            };
+
+            $.get('/register',data,function(cb){
+                if(cb=="sent")
+                {
+                    $("#message").empty().html("<p>Email has been sent at "+email+" . Please check inbox !</p>");
+                }
+                console.log('Server received our data');
+            });
+
+        })
+    </script>
+    
+</body>
+</html>

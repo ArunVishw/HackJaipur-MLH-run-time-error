@@ -3,6 +3,8 @@ if (result.error) {
     throw result.error
 }
 
+const Peer = require('simple-peer');
+
 const path = require('path');
 const express = require('express');
 const app = express() ;
@@ -44,19 +46,33 @@ app.use('/verify',verifyEmail);
 const joinInterview = require(path.join(__dirname, './routes/joinInterview'));
 app.use('/joinInterview', joinInterview);
 
-// const socketManager = require(path.join(__dirname, './routes/socketManager'));
-// io.on('connection', socketManager);
+
 io.on('connection', (client) => {
     console.log("SOCKET IO WORKING");
 
     client.on('updateNotepad', (data) => {
-        client.broadcast.to(data.room).emit('changeNotepad', data.text);
-        console.log("Online status broadcasted to ROOM " + data.room);
+        io.sockets.in(data.room).emit('changeNotepad', data.text);
     });
+
+    client.emit('connected');
 
     client.on('join', (room, callback) => {
         client.join(room);
         callback("Successfully joined the room : " + room);
     });
 
+    client.on("callUser", (data) => {
+        console.log("Calling User");
+        client.broadcast.to(data.room).emit('hey', { signal: data.signal });
+    })
+
+    client.on("acceptCall", (data) => {
+        console.log("Accepting call");
+        client.broadcast.to(data.room).emit('callAccepted', data.signal);
+    })
+
+    client.on("disconnectCall", (data) => {
+        console.log("Disconnecting call");
+        io.sockets.in(data.room).emit('disconnect');
+    })
 });

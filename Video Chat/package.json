@@ -1,0 +1,23 @@
+{
+  "name": "video-conferencing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "watch": "npx watchify ./public/main.js -o ./public/bundle.js"
+  },
+  "engines": {
+    "node": "12.17.0"
+  },
+  "author": "Atulya Raj",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "simple-peer": "^9.7.2",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "watchify": "^3.11.1"
+  }
+}

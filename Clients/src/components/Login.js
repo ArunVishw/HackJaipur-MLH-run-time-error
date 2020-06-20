@@ -3,17 +3,17 @@ import React, { Component } from 'react';
 export default class Login extends Component {
     render() {
         return (
-            <div class="col-md-6 login-form">
+            <div className="col-md-6 login-form">
                 <h3>Login</h3>
                 <form method="POST" action="/admin/login" >
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Email *" name="email" required="true" />
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Your Email *" name="email" required="{true}" />
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Your Password *" name="password" required="true" />
+                    <div className="form-group">
+                        <input type="password" className="form-control" placeholder="Your Password *" name="password" required="{true}" />
                     </div>
-                    <div class="form-group">
-                        <input type="submit" class="btnSubmit" name="Login" />
+                    <div className="form-group">
+                        <input type="submit" className="btnSubmit" name="Login" />
                     </div>
                 </form>
             </div>

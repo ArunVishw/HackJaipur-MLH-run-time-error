@@ -6,8 +6,8 @@ import './style.css';
 class Home extends Component {
     render() {
         return (
-            <div class="container login-container">
-                <div class="row">
+            <div className="container login-container">
+                <div className="row">
                     <Login />
                     <Register />
                 </div>                

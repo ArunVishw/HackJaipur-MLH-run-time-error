@@ -1,7 +1,7 @@
 # Recruitify
 
 ## About
-Interview Platform is a web application platform optimized for taking online interviews. We are exploring new ways to structure our interview process to create familiarity for candidates and account for bias, resulting in better candidate experience and hiring decisions.
+Recruitify is a web application interview platform optimized for taking online interviews. We are exploring new ways to structure our interview process to create familiarity for candidates and account for bias, resulting in better candidate experience and hiring decisions.
 
 ## Product Features
 * Login registration for the interviewer

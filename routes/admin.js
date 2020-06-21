@@ -100,7 +100,7 @@ adminRouter.post('/register',(req,res)=>{
                     }
                 });
                 else {
-                    link = "http://localhost:5000/api/verify?email=" + email + "&key=" + randHash;
+                    link = "http://recruitify-mlh-hackjaipur.herokuapp.com/api/verify?email=" + email + "&key=" + randHash;
                     subject = "";
                     body = "Hello " + name + ",<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>";
                     sendMail(email, subject, body, function (err) {
@@ -160,10 +160,7 @@ adminRouter.post('/authenticateUser', passport.authenticate('jwt', { session: fa
 adminRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
     console.log("Logging out");
     res.clearCookie('access_token');
-    res.json({
-        user: { email: "", password: "" },
-        success: true
-    });
+    res.redirect('http://recruitify-mlh-hackjaipur.herokuapp.com');
 });
 
 
@@ -266,7 +263,7 @@ adminRouter.post('/massMail', passport.authenticate('jwt', { session: false }), 
                          "<br> Please regiter Yourself to INTERVIEW-PLATFORM for your interview at"
                          + "<br>Use " + _id + 
                          " as JOB ID. Be carefull while filling JOB ID.<br><a href=" 
-                         + "http://localhost:3000/candidate-registration" + ">Click here to go to INTERVIEW-PLATFORM</a>";
+                            + "http://recruitify-mlh-hackjaipur.herokuapp.com/candidate-registration" + ">Click here to go to INTERVIEW-PLATFORM</a>";
                         sendMail(emails[i], subject, body, function (err) {
                             if (err) {
                                 console.log("Mail Not Sent");

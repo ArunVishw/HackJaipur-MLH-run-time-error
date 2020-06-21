@@ -26,7 +26,7 @@ const ScheduleHiring = () => (
                         <ListGroupItem className="px-30">
                             <form id="uploadForm"
                                 enctype="multipart/form-data"
-                                action="http://localhost:5000/api/admin/massMail"
+                                action="http://recruitify-mlh-hackjaipur.herokuapp.com/api/admin/massMail"
                                 method="post"
                             >
                             <strong className="text-muted d-block mb-2">Upload Excel File</strong>

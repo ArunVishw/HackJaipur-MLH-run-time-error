@@ -32,11 +32,13 @@ if(process.env.NODE_ENV === 'production'){
 let io = socket(server);
 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "http://recruitify-mlh-hackjaipur.herokuapp.com");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Credentials", "true");
     next();
 });
+
+app.set("view engine", "ejs");
 
 app.use(cookieParser());
 app.use(express.json());
@@ -59,9 +61,9 @@ app.use('/api/joinInterview', joinInterview);
 const candidate = require(path.join(__dirname, './routes/candidate'));
 app.use('/api/candidate', candidate);
 
-app.get('/', (req,res) => {
-    res.render('index.ejs');
-});
+// app.get('/', (req,res) => {
+//     res.render('index');
+// });
 
 
 

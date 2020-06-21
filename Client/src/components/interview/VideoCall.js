@@ -16,7 +16,7 @@ const VideoCall = () => {
     const socket = useRef();
 
     useEffect(() => {
-        const socketUrl = "http://localhost:5000";
+        const socketUrl = "http://recruitify-mlh-hackjaipur.herokuapp.com";
         socket.current = io(socketUrl);
         socket.current.on('connect', () => {
             console.log("Connected");

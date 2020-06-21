@@ -16,6 +16,8 @@ import Interview from './views/Interview';
 // import InterviewNew from './views/InterviewNew';
 import Home from './views/Home';
 import GraphicalOverview from "./views/GraphicalOverview";
+import LandingPage from "./views/LandingPage";
+import Custom1Layout from "./layouts/Custom1";
 
 export default [
   {
@@ -23,6 +25,12 @@ export default [
     exact: true,
     layout: CustomLayout,
     component: Home
+  },
+  {
+    path: "/",
+    exact: true,
+    layout: Custom1Layout,
+    component: LandingPage
   },
   {
     path: "/dashboard",
@@ -61,11 +69,6 @@ export default [
     layout: CustomLayout,
     component: Interview
   },
-  // {
-  //   path: "/interviewNew",
-  //   layout: CustomLayout,
-  //   component: InterviewNew
-  // },
   {
     path: "/errors",
     layout: DefaultLayout,

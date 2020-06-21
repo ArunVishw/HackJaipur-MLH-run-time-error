@@ -24,7 +24,7 @@ const Dashboard = () => {
           <Card small className="mb-4">
             <ListGroup flush>
               <ListGroupItem className="px-30">
-                <Form method="GET" action="http://localhost:5000/api/joinInterview/admin">
+                <Form method="GET" action="http://recruitify-mlh-hackjaipur.herokuapp.com/api/joinInterview/admin">
                   <Row>
                     <Col md="6" className="form-group">
                       <label htmlFor="feEmailAddress">Enter email id of candidate</label>

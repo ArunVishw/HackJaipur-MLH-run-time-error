@@ -14,7 +14,7 @@ import {
 } from "shards-react";
 import PageTitle from "../components/common/PageTitle";
 
-const path = "http://localhost:5000/api/candidate/registration";
+const path = "http://recruitify-mlh-hackjaipur.herokuapp.com/api/candidate/registration";
 
 const CandidateRegistration = () => (
     <Container fluid className="main-content-container px-4 pb-4">

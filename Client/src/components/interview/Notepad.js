@@ -21,7 +21,7 @@ class Notepad extends Component {
     }
 
     componentWillMount(){
-        const socketUrl = process.env.HOST;
+        const socketUrl = "http://recruitify-mlh-hackjaipur.herokuapp.com";
         const socket = io(socketUrl);
         socket.on('connect', () => {
             console.log("Connected");

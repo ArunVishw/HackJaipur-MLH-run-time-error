@@ -32,7 +32,7 @@ candidateRouter.post('/registration', (req,res) => {
             body = "Hello " + name + 
             ", <br> Your Interview has been scheduled at 10:00AM on 24th July,2020." +
             "<br> Open the following link only at the time of interview !" +
-            "<a href='http://localhost:5000/api/joinInterview/candidate'>Join Interview</a>";
+            "<a href='http://recruitify-mlh-hackjaipur.herokuapp.com/api/joinInterview/candidate'>Join Interview</a>";
             sendMail(email, subject, body, function (err) {
                 if (err) {
                     res.end("error");
@@ -58,7 +58,7 @@ candidateRouter.post('/registration', (req,res) => {
                         else {
                             res.status(201).json({
                                 message: {
-                                    msgBody: "Error in registration !",
+                                    msgBody: "Registered !",
                                     msgError: false
                                 }
                             });

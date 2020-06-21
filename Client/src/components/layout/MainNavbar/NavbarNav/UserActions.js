@@ -49,7 +49,7 @@ export default class UserActions extends React.Component {
             <i className="material-icons">&#xE7FD;</i> Profile
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="http://localhost:5000/api/admin/logout" className="text-danger">
+          <DropdownItem tag={Link} to="http://recruitify-mlh-hackjaipur.herokuapp.com/api/admin/logout" className="text-danger">
             <i className="material-icons text-danger">&#xE879;</i> Logout
           </DropdownItem>
         </Collapse>

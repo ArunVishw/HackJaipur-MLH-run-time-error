@@ -8,7 +8,7 @@ import { Store } from "../flux";
 
 const DefaultLayout = ({children}) => {
   useEffect(() => {
-    const url = "http://localhost:5000/api/admin/authenticateUser";
+    const url = "http://recruitify-mlh-hackjaipur.herokuapp.com/api/admin/authenticateUser";
     const params = {
       method: 'POST',
       mode: 'cors',

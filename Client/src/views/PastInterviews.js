@@ -59,7 +59,7 @@ const PastInterviews = (props) => {
   });
 
   // useEffect(() => {
-    const url = "http://localhost:5000/api/admin/pastInterviews";
+  const url = "http://recruitify-mlh-hackjaipur.herokuapp.com/api/admin/pastInterviews";
     const params = {
       method: 'GET',
       mode: 'cors',

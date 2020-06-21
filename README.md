@@ -1,31 +1,40 @@
 # Recruitify
 
 ## About
-Recruitify is a web application interview platform optimized for taking online interviews. We are exploring new ways to structure our interview process to create familiarity for candidates and account for bias, resulting in better candidate experience and hiring decisions.
+Recruitify is a MERN Stack based web application providing an optimized **Interview Platform** for recruitements of new Employees/students.It has various features ranging from **Video Conferencing** to White board interviews thorugh **real-time Notepad**. We are exploring new ways to structure our interview process to create familiarity for candidates and account for bias, resulting in better candidate experience and hiring decisions.
 
 ## Product Features
-* Login registration for the interviewer
+* Login registration for the Interviewer
 * Generate unique IDs for video call
 * Video call for the interview
-* Real-time live notepad for interview
+* Real-time live notepad for white board Interview
 * Scoring in real-time
 * View pending interviews
 * View past interviews
-* Massmail the students to register for interviews.
+* Massmailer to send register links to the the students for interviews.
 ## Hiring Process
 The process of hiring is a fixed sequence of steps. The following steps are available:
 
-* application for the vacancy by the applicant
-* smart-filter — filter the candidate on the basis of the number of skills he/she has.
-* video interviews
-* score
-* save performance of the candidate into the database.
+* Application for the vacancy by the applicant
+* Smart-filter — filter the candidate on the basis of the number of skills he/she has.
+* Video interviews
+* Score
+* Save performance of the candidate into the database for future reference.
 
 ## The problem it solved
-We have added new ways to structure our interview. We have added real-time notepad and scoring features on our platform. Live notepad makes a smooth understanding between candidate and interviewer while discussing the problems. Also, we are using a resume filter built using Natural Language Processing. It filters out the candidates on the basis of their skills and thus makes the interview process less hectic.
+During this time of COVID'19,it is not possible for companies to have a physical recruitement drives in various Universities.
+So,we have developed a platform to help the recruiters to get in touch with students remotely.
+This platform is useful,even for those companies,which recruit employess from various parts of the world.
+
+We have added new ways to structure our interview. We have added real-time notepad and scoring features on our platform. Live notepad makes a smooth understanding between candidate and interviewer while discussing the problems. We also developed a resume filter built using Natural Language Processing. It filters out the candidates on the basis of their skills and thus makes the interview process less hectic and more effective.
 
 ## Challenges we ran into
-Our resume filter is only able to extract the data and filters the candidate on the basis of their skills. Due to time constraints, we are not able to extract all the details like name, emails, etc from the resume itself.
+
+There were two challenges that we faced in this 32 hour long hackathon.
+
+* Our resume filter is only able to extract the data and filters the candidate on the basis of their skills. Due to time constraints, we are not able to extract all the details like name, emails, etc from the resume itself.
+* The mailing system works from a given location only.As we used Gmail as our SMTP service,it doesn't allow sending mails from two different locations.
+
 
 ## Requirements
 * **MERN STACK**

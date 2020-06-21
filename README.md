@@ -32,7 +32,8 @@ We have added new ways to structure our interview. We have added real-time notep
 
 There were two challenges that we faced in this 32 hour long hackathon.
 
-* Our resume filter is only able to extract the data and filters the candidate on the basis of their skills. Due to time constraints, we are not able to extract all the details like name, emails, etc from the resume itself.
+* We have faced problem while extracting the text from the resume pdf. In the beginning, we have used **PyPDF2** module to extract the text from pdf but it was only able to read **"\n"** from the pdf and thus we are not getting desire output. We have fixed this issue by using the **tika** module of python.
+Also, the resume filter is only able to extract the data and filters the candidate on the basis of their skills. Due to time constraints, we are not able to extract all the details like name, emails, etc from the resume itself.
 * The mailing system works from a given location only.As we used Gmail as our SMTP service,it doesn't allow sending mails from two different locations.
 
 

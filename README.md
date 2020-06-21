@@ -48,6 +48,9 @@ Also, the resume filter is only able to extract the data and filters the candida
 * **SMTP** - The Simple Mail Transfer Protocol is a communication protocol for electronic mail transmission. It is used for mass mailing.
 * **WEBRTC** - An open framework for the web that enables Real-Time Communications (RTC) capabilities in the browser. It is used for video calling.
 * **PassportJS** - Passport is authentication middleware for Node. js. It is used for authentication and authorization(Login and sign-up).
+* **NLP** - Natural Language Processing (or NLP) involves the intelligent analysis of written language. It is used to analyze the data of candidates from their provided resume.
+* **Tika** - Tika is a content detection and analysis framework. It is used to extract the data from the pdf.
+* **pandas** -  pandas is a software library written for the Python programming language for data manipulation and analysis. It is to extract the data from csv file.
 
 
 ## Installation

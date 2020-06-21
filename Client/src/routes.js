@@ -57,7 +57,7 @@ export default [
   },
   {
     path: "/interview",
-    layout: DefaultLayout,
+    layout: CustomLayout,
     component: Interview
   },
   {

@@ -10,12 +10,15 @@ import {
   NavLink
 } from "shards-react";
 
+import Store from "../../../../flux/store";
+
 export default class UserActions extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      visible: false
+      visible: false,
+      userData: Store.getUserData()
     };
 
     this.toggleUserActions = this.toggleUserActions.bind(this);
@@ -27,16 +30,19 @@ export default class UserActions extends React.Component {
     });
   }
 
+  componentWillMount(){
+    Store.on('userDataChanged', () => {
+      this.setState({
+        userData: Store.getUserData()
+      });
+    });
+  }
+
   render() {
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
         <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
-          {/* <img
-            className="user-avatar rounded-circle mr-2"
-            src={require("./../../../../images/avatars/0.jpg")}
-            alt="User Avatar"
-          />{" "} */}
-          <span className="d-none d-md-inline-block">Sierra Brooks</span>
+      <span className="d-none d-md-inline-block">{this.state.userData.name}</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to="user-profile">

@@ -8,7 +8,7 @@ const style = {
     top: "5vh",
     right: "2vw",
     border: "2px solid green",
-    'border-radius': ".25rem",
+    borderRadius: ".25rem",
     transition: "border - color .15s ease -in -out, box - shadow .15s ease -in -out"
 }
 
@@ -18,7 +18,7 @@ class Drawpad extends Component {
             <div style={style} className="container">
                 <VideoCall />
             </div>
-        )
+        );
     }
 }
 

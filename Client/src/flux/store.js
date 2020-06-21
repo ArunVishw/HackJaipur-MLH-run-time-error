@@ -12,17 +12,22 @@ let _store = {
 class Store extends EventEmitter {
   constructor() {
     super();
-
+    this.userData = {
+      name: "",
+      organization: "",
+      email: ""
+    }
     this.registerToActions = this.registerToActions.bind(this);
     this.toggleSidebar = this.toggleSidebar.bind(this);
-
-    Dispatcher.register(this.registerToActions.bind(this));
   }
 
-  registerToActions({ actionType, payload }) {
-    switch (actionType) {
+  registerToActions(action) {
+    switch (action.type) {
       case Constants.TOGGLE_SIDEBAR:
         this.toggleSidebar();
+        break;
+      case "UPDATE_USER_DATA":
+        this.updateUserData(action.newData);
         break;
       default:
     }
@@ -48,6 +53,19 @@ class Store extends EventEmitter {
   removeChangeListener(callback) {
     this.removeListener(Constants.CHANGE, callback);
   }
+
+  getUserData(){
+    return this.userData;
+  }
+
+  updateUserData(newData){
+    this.userData = newData;
+    this.emit('userDataChanged');
+  }
 }
 
-export default new Store();
+const store = new Store();
+window.store = store;
+Dispatcher.register(store.registerToActions.bind(store));
+window.dispatcher = Dispatcher;
+export default store;

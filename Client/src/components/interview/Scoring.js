@@ -7,7 +7,7 @@ const style = {
     bottom: "5vh",
     right: "2vw",
     border: "2px solid black",
-    'border-radius': ".25rem",
+    borderRadius: ".25rem",
     transition: "border - color .15s ease -in -out, box - shadow .15s ease -in -out"
 }
 

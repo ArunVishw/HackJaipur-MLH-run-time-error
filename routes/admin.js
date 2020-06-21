@@ -29,19 +29,13 @@ adminRouter.post('/login', passport.authenticate('local',{session: false}) , (re
     if (req.isAuthenticated()) {
         const { _id, name, organization, email } = req.user;
         const token = signToken(_id);
-        res.cookie('access_token', token, { httpOnly: true, sameSite: true });
-        res.status(200).json({
-            isAuthenticated: true,
-            admin: { name, organization, email }
-        });
+        res.cookie('access_token', token, { httpOnly: true });
+        const url = process.env.PROXY + "/dashboard";
+        return res.redirect(url);
     }
     else {
-        res.status(500).json({
-            message: {
-                msgBody: "Invalid Credentials !",
-                msgError: true
-            }
-        });
+        const url = process.env.PROXY + "/dashboard";
+        return res.redirect(url);
     }
 });
 
@@ -94,8 +88,29 @@ adminRouter.post('/register',(req,res)=>{
     });
 });
 
+adminRouter.post('/authenticateUser', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log("AUTHENTICATING");
+    if (req.isAuthenticated()) {
+        const { _id, name, email, organization} = req.user;
+        res.status(500).json({
+            id: _id,
+            name: name,
+            email: email,
+            organization: organization
+        });
+    }
+    else{
+        res.status(500).json({
+            message: {
+                msgBody: "Invalid Credentials !",
+                msgError: true
+            }
+        });
+    }
+});
 
 adminRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log("Logging out");
     res.clearCookie('access_token');
     res.json({
         user: { email: "", password: "" },

@@ -8,7 +8,7 @@ const Container = {
   position: 'absolute',
 }
 
-function VideoCall() {
+const VideoCall = () => {
     const [stream, setStream] = useState();
     const [receivingCall, setReceivingCall] = useState(false);
     const [callerSignal, setCallerSignal] = useState();
@@ -185,6 +185,6 @@ function VideoCall() {
             {bottom}
         </div>
     );
-}
+};
 
 export default VideoCall;

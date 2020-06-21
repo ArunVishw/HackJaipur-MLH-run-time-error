@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "shards-react";
+import { Container, Row} from "shards-react";
 
 
 const CustomLayout = ({children}) => (

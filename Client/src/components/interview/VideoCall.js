@@ -2,11 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from "socket.io-client";
 import Peer from "simple-peer";
 
-const Container = {
-  height: '50vh',
-  width: '45vw',
-  position: 'absolute',
-}
 
 const VideoCall = () => {
     const [stream, setStream] = useState();
@@ -21,7 +16,7 @@ const VideoCall = () => {
     const socket = useRef();
 
     useEffect(() => {
-        const socketUrl = process.env.HOST;
+        const socketUrl = "http://localhost:5000";
         socket.current = io(socketUrl);
         socket.current.on('connect', () => {
             console.log("Connected");
@@ -117,27 +112,37 @@ const VideoCall = () => {
     let UserVideo;
     let UserVideoStyle = {
         zIndex: 2,
-        top: '0px',
-        position: 'absolute'
+        position: 'absolute',
+        maxWidth: '99%',
+        maxHeight: '99%',
+        width: '10vw',
+        height: '10vw',
+        backgroundSize: 'cover',
+        overflow: 'hidden',
     }
     if (stream) {
         UserVideo = (
-            <div style={UserVideoStyle}>
-                <video playsInline muted ref={userVideo} autoPlay width="20%" height="20%"></video>
+            <div className="wrapper">
+                <video style={UserVideoStyle} playsInline muted ref={userVideo} autoPlay></video>
             </div>
         );
     }
 
     let PartnerVideo;
     let PartnerVideoStyle={
-        zIndex:1,
-        top:'0px',
-        position: 'absolute'
+        zIndex: 1,
+        position: 'absolute',
+        maxWidth: '99%',
+        maxHeight: '99%',
+        width: '60vw',
+        height: '60vw',
+        backgroundSize: 'cover',
+        overflow: 'hidden',
     }
     if (callAccepted) {
         PartnerVideo = (
-            <div style={PartnerVideoStyle}>
-                <video playsInline ref={partnerVideo} autoPlay width="65%" height="65%" object-fit="cover" ></video>
+            <div className="wrapper">
+                <video style={PartnerVideoStyle} playsInline ref={partnerVideo} autoPlay width="65%" height="65%" object-fit="cover" ></video>
             </div>
         );
     }
@@ -147,7 +152,8 @@ const VideoCall = () => {
         position: 'absolute',
         bottom: '0.5vh',
         height: '10%',
-        width: '100%'
+        width: '100%',
+        zIndex:3
     }
     if (!receivingCall && !callAccepted && !calling) {
         bottom = (
@@ -179,10 +185,12 @@ const VideoCall = () => {
     }
 
     return (
-        <div style={Container}>
-            {UserVideo}
-            {PartnerVideo}
-            {bottom}
+        <div>
+            {/* <Container fluid className="main-content-container px-4"> */}
+                {UserVideo}
+                {PartnerVideo}
+                {bottom}
+            {/* </Container> */}
         </div>
     );
 };

@@ -14,6 +14,7 @@ const { Strategy } = require('passport');
 
 const mongoose = require('mongoose');
 const Admin = require(path.join(__dirname, '../db/models/adminSchema'));
+const Candidate = require(path.join(__dirname, '../db/models/candidateSchema'));
 
 const sendMail = require(path.join(__dirname, './mailer'));
 
@@ -30,11 +31,11 @@ adminRouter.post('/login', passport.authenticate('local',{session: false}) , (re
         const { _id, name, organization, email } = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, { httpOnly: true });
-        const url = process.env.PROXY + "/dashboard";
+        const url = process.env.FRONTEND_HOST + "/dashboard";
         return res.redirect(url);
     }
     else {
-        const url = process.env.PROXY + "/dashboard";
+        const url = process.env.FRONTEND_HOST + "/dashboard";
         return res.redirect(url);
     }
 });
@@ -56,28 +57,41 @@ adminRouter.post('/register',(req,res)=>{
             }
         });
         else{
-            host = req.get('host');
-            sendMail(name, email, host, function (err, verified) {
+            rand = randomstring.generate();
+            bcrypt.hash(rand, 10, (err, randHash) => {
                 if (err) res.status(500).json({
                     message: {
-                        msgBody: "Error has occurred while sending verification mail!",
+                        msgBody: "Error has occurred while generating HASH !",
                         msgError: true
                     }
                 });
                 else {
-                    const newAdmin = new Admin({ name, organization, email, password, verified});
-                    newAdmin.save(err => {
+                    link = process.env.HOST + "/api/verify?email=" + email + "&key=" + randHash;
+                    subject = "";
+                    body = "Hello " + name + ",<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>";
+                    sendMail(email, subject, body, function (err) {
                         if (err) res.status(500).json({
                             message: {
-                                msgBody: "Error has occurred while creating account!",
+                                msgBody: "Error has occurred while sending verification mail!",
                                 msgError: true
                             }
                         });
                         else {
-                            res.status(201).json({
-                                message: {
-                                    msgBody: "Account successfully created !",
-                                    msgError: false
+                            const newAdmin = new Admin({ name, organization, email, password, randHash});
+                            newAdmin.save(err => {
+                                if (err) res.status(500).json({
+                                    message: {
+                                        msgBody: "Error has occurred while creating account!",
+                                        msgError: true
+                                    }
+                                });
+                                else {
+                                    res.status(201).json({
+                                        message: {
+                                            msgBody: "Account successfully created !",
+                                            msgError: false
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -116,6 +130,68 @@ adminRouter.get('/logout', passport.authenticate('jwt', { session: false }), (re
         user: { email: "", password: "" },
         success: true
     });
+});
+
+
+//Getting Info for live Interviews
+adminRouter.get('/liveInterviews', passport.authenticate('jwt', { session: false }), (req,res) => {
+    console.log("Getting details of live interviews");
+    if (req.isAuthenticated()) {
+        const { _id } = req.user;
+        var query = { isSelected: true, isInterviewed: false, admin: _id };
+        Candidate.find(query, function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        });
+    }
+    else {
+        res.status(500).json({
+            message: {
+                msgBody: "Not a verified admin !",
+                msgError: true
+            }
+        });
+    }
+});
+
+
+//Getting Info for Past Interviews
+adminRouter.get('/pastInterviews', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log("Getting details of past interviews");
+    if (req.isAuthenticated()) {
+        const { _id } = req.user;
+        var query = { isSelected: true, isInterviewed: true, admin: _id };
+        Candidate.find(query, function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        });
+    }
+    else {
+        res.status(500).json({
+            message: {
+                msgBody: "Not a verified admin !",
+                msgError: true
+            }
+        });
+    }
+});
+
+
+
+
+// GOOGLE O AUTH
+
+adminRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+adminRouter.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function (req, res) {
+    res.cookie('access_token', token, { httpOnly: true });
+    const url = process.env.FRONTEND_HOST + "/dashboard";
 });
 
 

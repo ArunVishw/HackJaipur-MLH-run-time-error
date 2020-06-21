@@ -54,6 +54,10 @@ app.use('/api/verify',verifyEmail);
 const joinInterview = require(path.join(__dirname, './routes/joinInterview'));
 app.use('/api/joinInterview', joinInterview);
 
+const candidate = require(path.join(__dirname, './routes/candidate'));
+app.use('/api/candidate', candidate);
+
+
 
 io.on('connection', (client) => {
     console.log("SOCKET IO WORKING");

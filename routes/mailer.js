@@ -21,36 +21,24 @@ var smtpTransport = nodemailer.createTransport({
     }
 });
 
-var rand,mailOptions,host_name,link;
-
-const sendMail=(name,email,host,cb)=>{
-    rand = randomstring.generate();
-    bcrypt.hash(rand, 10, (err, randHash) => {
-        if (err){
-            cb(err);
+const sendMail=(email,subject,body,cb)=>{
+    
+    const mailOptions = {
+        from: process.env.MAILING_ID,
+        to: email,
+        subject: subject,
+        html: body
+    };
+    smtpTransport.sendMail(mailOptions, function (error) {
+        if (error) {
+            console.log(error);
+            cb(error);
         }
-        else{
-            link = process.env.HOST + "/api/verify?email=" + email + "&key=" + randHash;
-            mailOptions = {
-                from: process.env.MAILING_ID,
-                to: email,
-                subject: "Please confirm your Email account",
-                html: "Hello " + name + ",<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
-            };
-            console.log(mailOptions);
-            smtpTransport.sendMail(mailOptions, function (error, response) {
-                if (error) {
-                    console.log(error);
-                    cb(error, null);
-                }
-                else {
-                    console.log("Message sent!!! ");
-                    cb(null, rand);
-                }
-            });
+        else {
+            console.log("Message sent!!! ");
+            cb(null);
         }
     });
-
 };
 
 module.exports = sendMail;

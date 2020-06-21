@@ -22,4 +22,4 @@ class Drawpad extends Component {
     }
 }
 
-export default Drawpad
+export default Drawpad;

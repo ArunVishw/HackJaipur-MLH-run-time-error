@@ -8,7 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const Admin = require(path.join(__dirname, './db/models/adminSchema'));
 const JwtStrategy = require('passport-jwt').Strategy;
-
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 
 const cookieExtractor = req =>{
@@ -18,6 +18,20 @@ const cookieExtractor = req =>{
     }
     return t;
 }
+
+
+//Using google strategy for O-auth
+passport.use(new GoogleStrategy({
+    clientID: "GOOGLE_CLIENT_ID",
+    clientSecret: "GOOGLE_CLIENT_SECRET",
+    callbackURL: "/api/admin/auth/google/callback"
+},
+    function (accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
 
 
 // Authorization using JWT token / cookie

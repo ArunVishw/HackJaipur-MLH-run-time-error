@@ -7,7 +7,7 @@ const AdminSchema = new mongoose.Schema({
         required : true,
         max : 20 
     },
-    organization :{
+    institute :{
         type: String,
         required: true,
         max: 30 

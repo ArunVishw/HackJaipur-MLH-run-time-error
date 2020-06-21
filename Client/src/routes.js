@@ -13,6 +13,7 @@ import CandidateRegistration from "./views/CandidateRegistration";
 import LiveInterviews from "./views/LiveInterviews";
 import PastInterviews from "./views/PastInterviews";
 import Interview from './views/Interview';
+// import InterviewNew from './views/InterviewNew';
 import Home from './views/Home';
 import GraphicalOverview from "./views/GraphicalOverview";
 
@@ -60,6 +61,11 @@ export default [
     layout: CustomLayout,
     component: Interview
   },
+  // {
+  //   path: "/interviewNew",
+  //   layout: CustomLayout,
+  //   component: InterviewNew
+  // },
   {
     path: "/errors",
     layout: DefaultLayout,

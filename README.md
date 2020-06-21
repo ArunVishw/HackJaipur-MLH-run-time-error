@@ -1,2 +1,5 @@
-# HackJaipur-MLH-run-time-error
-This repository will contain all our project work that we will be submitting in HackJaipur Hackathon
+# Online_Interviews
+Repository for HackJaipur'20
+
+This final initial commit for final merging of components made individually...
+

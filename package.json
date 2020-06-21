@@ -1,0 +1,34 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.18.0"
+  },
+  "description": "Backend code for ONLINE INTERVIEW APP",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix Client && npm run build --prefix Client"
+  },
+  "author": "arunv8991@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "child_process": "^1.0.2",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.19",
+    "nodemailer": "^6.4.8",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5",
+    "simple-peer": "^9.7.2",
+    "socket.io": "^2.3.0"
+  }
+}

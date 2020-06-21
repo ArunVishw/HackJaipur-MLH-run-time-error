@@ -5,7 +5,7 @@ export default class Register extends Component {
         return (
             <div className="col-md-6 register-form">
                 <h3>Register</h3>
-                <form method="POST" action="/api/admin/register">
+                <form method="POST" action="http://localhost:5000/api/admin/register">
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="Your Name *" name="name" required="{true}" />
                     </div>

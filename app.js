@@ -45,6 +45,8 @@ const { Console } = require('console');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/assets', express.static('views/assets'));
+
 const adminRouter = require(path.join(__dirname, './routes/admin'));
 app.use('/api/admin',adminRouter);
 
@@ -56,6 +58,10 @@ app.use('/api/joinInterview', joinInterview);
 
 const candidate = require(path.join(__dirname, './routes/candidate'));
 app.use('/api/candidate', candidate);
+
+app.get('/', (req,res) => {
+    res.render('index.ejs');
+});
 
 
 

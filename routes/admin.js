@@ -12,6 +12,40 @@ const passportConfig = require(path.join(__dirname, '../passport'));
 const JWT = require('jsonwebtoken');
 const { Strategy } = require('passport');
 
+
+const randomstring = require('randomstring');
+const bcrypt = require('bcryptjs');
+
+//multer code
+
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var xlstojson = require("xls-to-json-lc");
+var xlsxtojson = require("xlsx-to-json-lc");
+
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    }
+});
+
+
+var upload = multer({ //multer settings
+    storage: storage,
+    fileFilter: function (req, file, callback) { //file filter
+        if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length - 1]) === -1) {
+            return callback(new Error('Wrong extension type'));
+        }
+        callback(null, true);
+    }
+}).single('file');
+
+
+
 const mongoose = require('mongoose');
 const Admin = require(path.join(__dirname, '../db/models/adminSchema'));
 const Candidate = require(path.join(__dirname, '../db/models/candidateSchema'));
@@ -66,7 +100,7 @@ adminRouter.post('/register',(req,res)=>{
                     }
                 });
                 else {
-                    link = process.env.HOST + "/api/verify?email=" + email + "&key=" + randHash;
+                    link = "http://localhost:5000/api/verify?email=" + email + "&key=" + randHash;
                     subject = "";
                     body = "Hello " + name + ",<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>";
                     sendMail(email, subject, body, function (err) {
@@ -169,6 +203,82 @@ adminRouter.get('/pastInterviews', passport.authenticate('jwt', { session: false
                 res.send(err);
             } else {
                 res.send(result);
+            }
+        });
+    }
+    else {
+        res.status(500).json({
+            message: {
+                msgBody: "Not a verified admin !",
+                msgError: true
+            }
+        });
+    }
+});
+
+
+//Mass mailing students
+adminRouter.post('/massMail', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log("Mass mailing students");
+    const emails = [];
+    if (req.isAuthenticated()) {
+        var exceltojson;
+        const _id=req.user._id;
+        const company = req.user.organization;
+        console.log(req.user);
+        upload(req, res, function (err) {
+            if (err) {
+                res.json({ error_code: 1, err_desc: err });
+                return;
+            }
+            /** Multer gives us file info in req.file object */
+            if (!req.file) {
+                res.json({ error_code: 1, err_desc: "No file passed" });
+                return;
+            }
+            /** Check the extension of the incoming file and 
+             *  use the appropriate module
+             */
+            if (req.file.originalname.split('.')[req.file.originalname.split('.').length - 1] === 'xlsx') {
+                exceltojson = xlsxtojson;
+            } else {
+                exceltojson = xlstojson;
+            }
+            console.log(req.file.path);
+            try {
+                exceltojson({
+                    input: req.file.path,
+                    output: null, //since we don't need output.json
+                    lowerCaseHeaders: true
+                }, function (err, result) {
+                    if (err) {
+                        return res.json({ error_code: 1, err_desc: err, data: null });
+                    }
+
+                    //console.log(result[1].email);
+                    for (var i in result)
+                        emails.push(result[i].email);
+                    for (var i = 0; i < emails.length; i++) {
+                        console.log(emails[i]);
+                        //sending mails
+                        subject = "Register at INTERVIEW-PLATFORM for JOBS.";
+                        body = "Hello, " + 
+                         "<br> Please regiter Yourself to INTERVIEW-PLATFORM for your interview at"
+                         + "<br>Use " + _id + 
+                         " as JOB ID. Be carefull while filling JOB ID.<br><a href=" 
+                         + "http://localhost:3000/candidate-registration" + ">Click here to go to INTERVIEW-PLATFORM</a>";
+                        sendMail(emails[i], subject, body, function (err) {
+                            if (err) {
+                                console.log("Mail Not Sent");
+                            } else {
+                                console.log("mail sent");
+                            }
+                        });
+                    }
+                    res.json({ error_code: 0, err_desc: null, data: result });
+                });
+            } catch (e) {
+                res.json({ error_code: 1, err_desc: "Corupted excel file" });
             }
         });
     }

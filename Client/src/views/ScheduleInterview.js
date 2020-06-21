@@ -12,6 +12,7 @@ import {
 
 import PageTitle from "../components/common/PageTitle";
 import CustomFileUpload from "../components/components-overview/CustomFileUpload";
+import { Form } from "reactstrap";
 
 const ScheduleHiring = () => (
     <Container fluid className="main-content-container px-4 pb-4">
@@ -23,18 +24,19 @@ const ScheduleHiring = () => (
                 <Card small className="mb-4">
                     <ListGroup flush>
                         <ListGroupItem className="px-30">
+                            <form id="uploadForm"
+                                enctype="multipart/form-data"
+                                action="http://localhost:5000/api/admin/massMail"
+                                method="post"
+                            >
                             <strong className="text-muted d-block mb-2">Upload Excel File</strong>
-                            <CustomFileUpload />
-                            <strong className="text-muted d-block mb-2">Campus Drive/Hiring Name</strong>
-                            <FormInput
-                                id="hiringName"
-                                type="text"
-                                placeholder="MIT"
-                            />
+                            <input type="file" name="file" />                       
+                            <br />
                             <br />
                             <Row>
-                                <Button type="submit">Submit Details</Button>
+                                <Button type="submit" value="Upload" name="submit">Submit Details</Button>
                             </Row>
+                            </form>
                         </ListGroupItem>
                     </ListGroup>
                 </Card>

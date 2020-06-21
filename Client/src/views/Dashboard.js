@@ -11,6 +11,7 @@ import {
 } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
+import { Form } from "reactstrap";
 
 const Dashboard = () => {
   return(
@@ -23,17 +24,20 @@ const Dashboard = () => {
           <Card small className="mb-4">
             <ListGroup flush>
               <ListGroupItem className="px-30">
-                <Row>
-                  <Col md="6" className="form-group">
-                    <label htmlFor="feEmailAddress">Enter email id of candidate</label>
-                    <FormInput
-                      id="feEmailAddress"
-                      type="email"
-                      placeholder="Email"
-                    />
-                  </Col>
-                </Row>
-                <Button type="submit">Join Interview</Button>
+                <Form method="GET" action="http://localhost:5000/api/joinInterview/admin">
+                  <Row>
+                    <Col md="6" className="form-group">
+                      <label htmlFor="feEmailAddress">Enter email id of candidate</label>
+                      <FormInput
+                        id="feEmailAddress"
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                      />
+                    </Col>
+                  </Row>
+                  <Button type="submit">Join Interview</Button>
+                </Form>
               </ListGroupItem>
             </ListGroup>
           </Card>

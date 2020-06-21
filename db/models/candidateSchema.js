@@ -36,20 +36,20 @@ const CandidateSchema = new mongoose.Schema({
         required: true,
         max: 30
     },
-    criteriaMatched:{
-        type:Number,
-        required:true,
-        default:0
+    admin: {
+        type: String,
+        required: true,
+        max: 50
     },
+    // criteriaMatched:{
+    //     type:Number,
+    //     required:true,
+    //     default:0
+    // },
     // resume: {
     //     type: String,
     //     required: true,
     // },
-    admin:{
-        type: String,
-        required: true,
-        default:"notfixed"
-    },
     isSelected: {
         type: Boolean,
         default: true

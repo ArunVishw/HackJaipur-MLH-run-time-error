@@ -79,12 +79,12 @@ const CandidateRegistration = () => (
                                     />
                                 </Col>
                                 <Col md="6">
-                                    <label htmlFor="yearOfPassout">Year of Passout</label>
+                                    <label htmlFor="admin">JOB ID</label>
                                     <FormInput
-                                        id="yearOfPassout"
+                                        id="admin"
                                         type="text"
-                                        placeholder="XXXX"
-                                        name="yearOfPassout"
+                                        placeholder="ssdfmlf2308cxd8f0sf3"
+                                        name="admin"
                                     />
                                 </Col>
                             </Row>

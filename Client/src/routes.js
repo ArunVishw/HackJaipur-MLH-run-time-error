@@ -19,7 +19,7 @@ import GraphicalOverview from "./views/GraphicalOverview";
 
 export default [
   {
-    path: "/",
+    path: "/home",
     exact: true,
     layout: CustomLayout,
     component: Home

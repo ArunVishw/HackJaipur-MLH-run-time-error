@@ -1,4 +1,4 @@
-# Recruitify
+# Recruitify(HackJaipur)
 
 ## About
 Recruitify is a MERN Stack based web application providing an optimized **Interview Platform** for recruitements of new Employees/students.It has various features ranging from **Video Conferencing** to White board interviews thorugh **real-time Notepad**. We are exploring new ways to structure our interview process to create familiarity for candidates and account for bias, resulting in better candidate experience and hiring decisions.

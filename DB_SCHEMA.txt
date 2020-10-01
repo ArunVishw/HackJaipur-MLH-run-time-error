@@ -17,7 +17,6 @@ Tables/Collections-
 	--Organization
 	--Email
 	--Password
-	--isVerified
 
 -STUDENT
 	--Name
@@ -28,14 +27,11 @@ Tables/Collections-
 	--Scholar Number
 	--CGPA
 	--criteriaMatched
-	--Resume
 	--Admin
 	--Interview
 		--isInterviewed
 		--isSelected
 		--Organization
 		--Date
-		--Time
-		--Score
 		--Notepad
 		

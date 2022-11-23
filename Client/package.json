@@ -37,7 +37,7 @@
     "shards-react": "^1.0.0",
     "shortid": "^2.2.14",
     "simple-peer": "^9.7.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "socket.io-client": "^2.3.0",
     "victory": "^32.0.0"
   },
